@@ -33,8 +33,17 @@ void Ingrediente::agregar(){
 	cantidad += rand()% 2+ 1;
 }
 
+void Ingrediente::setCantidad(int c){
+	cantidad = c;
+}
+
 void Ingrediente::quitar(int n){
 	cantidad -= n;
+	cont --;
+	if(cont <= 0){
+		cont = duracion;
+		cantidad -= cantidad/10;
+	}
 }
 
 void Ingrediente::setNombre(string nom){

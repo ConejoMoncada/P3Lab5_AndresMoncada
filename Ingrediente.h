@@ -20,6 +20,7 @@ class Ingrediente{
 		int getCantidad();
 
 		void agregar();
+		void setCantidad(int);
 		void quitar(int);
 
 		void setNombre(string);
