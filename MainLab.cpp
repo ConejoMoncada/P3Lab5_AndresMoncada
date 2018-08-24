@@ -81,7 +81,7 @@ void addi(){
 	cin >> cant;
 	Ingrediente ing(nom,tipo,ap,dur,cant);
 	inv.push_back(ing);
-	cout << "Ingrediente guardado";
+	cout << "Ingrediente guardado" << endl;
 }
 
 void addp(){
@@ -122,11 +122,21 @@ void addp(){
 				resp = 0;
 			}
 		}while(resp != 2);
+		cout << "Plato agregado al menú" << endl;
 	}
+	else
+		cout << "Agrege ingredientes a la bodega primero" << endl;
 }
 
 void remp(){
-
+	for (int i = 0; i < platos.size(); i++){
+		cout << i << ". " << platos[i].getNombre() << endl;
+	}
+	int index;
+	cout << "Ingrese el índice del plato que desea eliminar: ";
+	cin >> index;
+	platos.erase(platos.begin()+index);
+	cout << "Plato eliminado del menú" << endl;
 }
 
 void ventas(){
