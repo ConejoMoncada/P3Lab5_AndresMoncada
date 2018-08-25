@@ -1,6 +1,8 @@
 #include "Ingrediente.h"
 #include<math.h>
+#include<time.h>
 Ingrediente::Ingrediente(string nom, string tip, int ap, int dur, int cant){
+	srand(time(NULL));
 	nombre = nom;
 	tipo = tip;
 	aporte = ap;

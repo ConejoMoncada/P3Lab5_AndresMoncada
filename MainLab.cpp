@@ -86,17 +86,17 @@ void addi(){
 
 void addp(){
 	if(inv.size() > 0){ 
-		string nom;
-		string rsa;//reseña, pero la ñ no funciona en variables
-		double precio;
+		string nom ="Comida";
+		string rsa = "Bueno";//reseña, pero la ñ no funciona en variables
+		double precio = 1.0;
 		cout << "Ingrese el nombre del plato: ";
-		cin >> nom;
+		//cin >> nom;
 		cout << "Ingrese una reseña del plato:" << endl;
-		//getline(cin,rsa);
-		cin >> rsa;
+		//cin >> rsa;
 		cout << "Ingrese el precio: ";
-		cin >> precio;
-		Plato p(nom,rsa,precio);
+		//cin >> precio;
+		cout << "A";
+		//Plato p(nom,rsa,precio);
 		int resp = -1;
 		do{
 			if(resp != -1){
@@ -117,8 +117,8 @@ void addp(){
 				int cant;
 				cin >> cant;
 				ing.setCantidad(cant);
-				p.agregar(ing);
-				platos.push_back(p);
+				//p.agregar(ing);
+				//platos.push_back(p);
 				resp = 0;
 			}
 		}while(resp != 2);
@@ -140,4 +140,52 @@ void remp(){
 }
 
 void ventas(){
+	cout << "Ya a comprado aquí antes? [s/n]";
+	char r1;
+	cin >> r1;
+	int index;
+	if(r1 == 'n'){
+		cout << "Nombre del cliente: ";
+		string nom;
+		cin >> nom;
+		Cliente cte(nom);
+		index = clientes.size();
+		clientes.push_back(cte);
+	}
+	else {
+		for (int i = 0; i < clientes.size(); i++){
+			cout << i << ". " << clientes[i].getNombre();
+		}
+		cout << "Ingrece el índice del cliente: ";
+		cin >> index;
+	}
+	if(platos.size() > 0){
+		int p;//índice plato
+		int b;//índice en bodega
+		int c;//cantidad
+		vector<Ingrediente> ip;//ingredientes del plato
+		cout << "MENÚ" << endl;
+		for (int i = 0; i < platos.size(); i++){
+			cout << i << ". " << platos[i].getNombre() << platos[i].getValor()<<endl;
+		}
+		cout << "Ingrese el numero del plato: ";
+		cin >> p;
+		ip = platos[p].getIngredientes();
+		for(int i = 0; i < ip.size(); i++){
+			string nombre = ip[i].getNombre();
+			for (int j = 0; j < inv.size(); j++){
+				if(nombre.compare(inv[j].getNombre()) == 0){
+						while(ip[i].getCantidad() > inv[j].getCantidad()){
+							inv[j].agregar();
+						}
+						inv[j].quitar(ip[i].getCantidad());
+				}
+			}
+		}
+		int nota;
+		cout << "Cuanto le dio al plato? [1-5]: ";
+		cin >> nota;
+		platos[p].cocinar(nota);
+		clientes[index].compra(platos[p].getNombre(),nota,platos[p].getPrecio());
+	}
 }
